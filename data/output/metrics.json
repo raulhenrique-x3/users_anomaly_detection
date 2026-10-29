@@ -1,0 +1,24 @@
+{
+  "n_rows": 330452,
+  "total_positives": 1364,
+  "models": [
+    {
+      "score": "score_baseline",
+      "recall@100": 0.027126099706744868,
+      "recall@1pct": 0.07111436950146628,
+      "precision@100": 0.37,
+      "incidents@100": 37,
+      "pr_auc": 0.038210947378633064,
+      "roc_auc": 0.799932198206564
+    },
+    {
+      "score": "score_iforest",
+      "recall@100": 0.001466275659824047,
+      "recall@1pct": 0.05278592375366569,
+      "precision@100": 0.02,
+      "incidents@100": 2,
+      "pr_auc": 0.015598246476203892,
+      "roc_auc": 0.8468465754482521
+    }
+  ]
+}

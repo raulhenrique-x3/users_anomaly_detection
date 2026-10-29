@@ -1,0 +1,15 @@
+# ambiente
+.venv/
+__pycache__/
+*.pyc
+
+# dados pesados — regeneráveis via scripts/fetch_dataset.py + build_*.py
+data/raw/
+data/interim/
+data/features/
+data/models/
+
+# editor/OS
+.idea/
+.vscode/
+.DS_Store
