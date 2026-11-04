@@ -63,6 +63,29 @@ Depois disso, os próximos passos (fases do projeto) rodam o pipeline completo:
 consolidar os logs, montar os comportamentos, treinar o detector e gerar a
 lista final de alertas.
 
+## Tecnologias e como são usadas
+
+- **Python 3.12** — base de todo o projeto (`venv` + `pip` + `requirements.txt`).
+- **Polars** — o motor do pipeline de dados: lê os CSVs de logs do CERT, limpa e
+  consolida os eventos e calcula as features de comportamento por usuário-dia
+  (logs de logon, e-mail, HTTP, dispositivos e arquivos).
+- **NumPy** — a matriz numérica de features que alimenta os modelos, além dos
+  cálculos de métricas e de explicação das notas.
+- **scikit-learn** — dois papéis:
+  1. **Detector principal:** `IsolationForest` (200 árvores, seed fixa) sobre as
+     features, após um `RobustScaler` — um escalonador que não deixa os dias
+     extremos distorcerem a escala do resto.
+  2. **Avaliação:** `average_precision_score` e ROC-AUC calculam a PR-AUC e a
+     qualidade global do ranking.
+- **Baseline (regras)** — o modelo de comparação é feito em casa, com
+  Polars/NumPy: "alerte quando a atividade do dia ficar bem acima da média" —
+  sem biblioteca de ML.
+- **kagglehub** — baixa o dataset CERT r4.2 direto do Kaggle para `data/raw/`.
+- **PyTorch + PyTorch-Lightning (planejado)** — instalados para um autoencoder
+  experimental com GPU NVIDIA (decisão registrada em
+  `docs/decisions/ADR-003-gpu-torch.md`); entra na próxima fase, em
+  comparação direta contra o Isolation Forest — só fica se vencer.
+
 ## Quão bom ele precisa ser (métricas)
 
 Como os dias "suspeitos" de verdade são raros (~2% da lista), dizer "acertou
