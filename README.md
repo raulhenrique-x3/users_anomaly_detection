@@ -77,9 +77,12 @@ lista final de alertas.
      extremos distorcerem a escala do resto.
   2. **Avaliação:** `average_precision_score` e ROC-AUC calculam a PR-AUC e a
      qualidade global do ranking.
-- **Baseline (regras)** — o modelo de comparação é feito em casa, com
-  Polars/NumPy: "alerte quando a atividade do dia ficar bem acima da média" —
-  sem biblioteca de ML.
+- **Baseline de comparação (z-score)** — modelo propositalmente simples que
+  serve de régua: para cada tipo de atividade, calcula a média e o
+  desvio-padrão de toda a empresa, e nota o dia olhando quantos
+  desvios-padrão o comportamento ficou acima dessa média. São apenas duas
+  fórmulas de matemática com NumPy (`(valor − média) ÷ desvio`), sem
+  biblioteca de ML — o detector principal só vale o esforço se o vencer.
 - **kagglehub** — baixa o dataset CERT r4.2 direto do Kaggle para `data/raw/`.
 - **PyTorch + PyTorch-Lightning (planejado)** — instalados para um autoencoder
   experimental com GPU NVIDIA (decisão registrada em
